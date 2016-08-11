@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package edu.upqroo.reservations.app;
-
+import edu.upqroo.reservations.ui.Login;
 /**
  *
  * @author Horacio
  */
 public class Principal {
     public static void main(String[] args){
-        System.out.println("Hi reservation manager!");
+        Login log = new Login();
+        log.show();
     }
 }

@@ -123,4 +123,20 @@ public class UsersMongoDao implements UsersDao{
         mongo.close();
         return user;
     }
+
+    @Override
+    public Users Login(String User, String Password) {
+        CrearMongoDao();
+        BasicDBObject data = new BasicDBObject();
+        data.put("UserName", User);
+        data.put("Password", Password);
+        DBCursor cursor = tabla.find(data);
+        Users user=null;
+        if(cursor.hasNext()){
+            String json = cursor.next().toString();
+            user = gson.fromJson(json, Users.class);
+        }
+        mongo.close();
+        return user;
+    }
 }

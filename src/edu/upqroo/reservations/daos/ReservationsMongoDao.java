@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.upqroo.reservations.dao;
+
+package edu.upqroo.reservations.daos;
 
 /**
- *
+ * 
  * @author Moises Barrera
  */
-public interface CostumersDao {
-    
+public class ReservationsMongoDao {
+
 }

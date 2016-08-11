@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package edu.upqroo.reservations.dao;
+package edu.upqroo.reservations.daos;
 
 /**
  * 
  * @author Moises Barrera
  */
-public class ReservationsMongoDao {
+public class CostumersMongoDao {
 
 }

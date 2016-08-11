@@ -5,10 +5,15 @@
  */
 package edu.upqroo.reservations.services;
 
+import edu.upqroo.reservations.domain.Users;
+import java.util.List;
+
 /**
  *
  * @author Horacio
  */
 public interface UserService {
-    
+    List<Users> getAllUsers();
+    void addUser(Users user);
+    Users login(String NameUser, String pass);
 }

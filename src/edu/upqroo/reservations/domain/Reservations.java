@@ -7,6 +7,7 @@
 package edu.upqroo.reservations.domain;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 
@@ -14,6 +15,7 @@ import java.util.Date;
  */
 public class Reservations {
     private int id;
+    private List<Costumers> Costumers;
     private int SellerId;
     private Date SaleDate;
     private Date DepartureDate;
@@ -27,6 +29,14 @@ public class Reservations {
 
     public int getId() {
         return id;
+    }
+
+    public List<Costumers> getCostumers() {
+        return Costumers;
+    }
+
+    public void setCostumers(List<Costumers> Costumers) {
+        this.Costumers = Costumers;
     }
 
     public void setId(int id) {

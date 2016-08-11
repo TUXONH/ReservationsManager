@@ -44,7 +44,7 @@ public class UsersMongoDao implements UsersDao{
     }
 
     @Override
-    public void DeleteUser(int id) {
+    public boolean DeleteUser(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

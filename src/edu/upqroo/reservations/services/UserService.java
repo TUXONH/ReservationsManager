@@ -5,10 +5,19 @@
  */
 package edu.upqroo.reservations.services;
 
+import edu.upqroo.reservations.domain.Users;
+import edu.upqroo.reservations.exceptions.isEmptyUserDataException;
+import java.util.List;
+
 /**
  *
  * @author Horacio
  */
 public interface UserService {
-    
+    void addUser(Users user);
+    boolean DeleteUser(int id);
+    void UpdateUser(Users user);
+    List<Users> getAllUsers();
+    Users GetUser(int id);
+    Users Login(String User, String Password);
 }

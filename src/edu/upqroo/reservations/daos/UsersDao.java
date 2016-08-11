@@ -14,7 +14,7 @@ import java.util.*;
  */
 public interface UsersDao {
     void addUser(Users user);
-    void DeleteUser(int id);
+    boolean DeleteUser(int id);
     void UpdateUser(Users user);
     List<Users> getAllUsers();
     Users GetUser(int id);

@@ -5,10 +5,17 @@
  */
 package edu.upqroo.reservations.dao;
 
+import edu.upqroo.reservations.domain.Users;
+import java.util.*;
+
 /**
  *
  * @author Moises Barrera
  */
 public interface UsersDao {
-    
+    void addUser(Users user);
+    void DeleteUser(int id);
+    void UpdateUser(Users user);
+    List<Users> getAllUsers();
+    Users GetUser(int id);
 }

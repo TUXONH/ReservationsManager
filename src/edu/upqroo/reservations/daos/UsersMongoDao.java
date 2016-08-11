@@ -64,11 +64,21 @@ public class UsersMongoDao implements UsersDao{
     }
 
     @Override
-    public void DeleteUser(int id) {
+    public boolean DeleteUser(int id) {
         CrearMongoDao();
         BasicDBObject obj = new BasicDBObject();
         obj.put( "id", id );
         tabla.remove(obj);
+        mongo.close();
+        CrearMongoDao();
+        BasicDBObject data = new BasicDBObject();
+        data.put("id", id);
+        DBCursor cursor = tabla.find(data);
+        mongo.close();
+        if(cursor.hasNext()){
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -85,6 +95,7 @@ public class UsersMongoDao implements UsersDao{
         obj.put("IsAdministrator", user.getIsAdministrator());
         System.out.println(obj.toString());
         tabla.update(filtro, obj);
+        mongo.close();
     }
 
     @Override

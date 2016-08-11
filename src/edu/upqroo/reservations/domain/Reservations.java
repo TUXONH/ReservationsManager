@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Reservations {
     private int id;
-    private List<Costumers> Costumers;
+    private List<Customers> Costumers;
     private int SellerId;
     private Date SaleDate;
     private Date DepartureDate;
@@ -31,11 +31,11 @@ public class Reservations {
         return id;
     }
 
-    public List<Costumers> getCostumers() {
+    public List<Customers> getCostumers() {
         return Costumers;
     }
 
-    public void setCostumers(List<Costumers> Costumers) {
+    public void setCostumers(List<Customers> Costumers) {
         this.Costumers = Costumers;
     }
 

@@ -9,9 +9,9 @@ package edu.upqroo.reservations.exceptions;
  *
  * @author Horacio
  */
-public class isEmptyUserDataException extends Exception {
-    private String message = "Name or Lastname fields are empty, please fill after send";
-    public isEmptyUserDataException(){
+public class isEmptyCostumerDataException extends Exception{
+    private String message = "Some fields are empty, please fill after send";
+    public isEmptyCostumerDataException(){
         System.out.println(message);
     }
 
@@ -22,5 +22,4 @@ public class isEmptyUserDataException extends Exception {
     public void setMessage(String message) {
         this.message = message;
     }
-    
 }

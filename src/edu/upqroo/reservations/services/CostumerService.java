@@ -5,10 +5,15 @@
  */
 package edu.upqroo.reservations.services;
 
+import edu.upqroo.reservations.domain.Customers;
+import java.util.List;
+
 /**
  *
  * @author Horacio
  */
 public interface CostumerService {
-    
+    void addCustormer(Customers customer);
+    void UpdateCustomer(Customers customer);
+    List<Customers> getAllCustomers();
 }

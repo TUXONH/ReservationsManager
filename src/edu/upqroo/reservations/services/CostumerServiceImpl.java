@@ -53,5 +53,10 @@ public class CostumerServiceImpl implements CostumerService{
     public List<Customers> getAllCustomers() {
         return this.customersDao.getAllCustomers();
     }
+
+    @Override
+    public boolean DeleteCustomer(int id) {
+        return this.customersDao.DeleteCustomer(id);
+    }
     
 }

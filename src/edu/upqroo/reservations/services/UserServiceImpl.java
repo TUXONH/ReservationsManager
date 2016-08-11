@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public Users Login(String User, String Password) {
         Users user = null;
-        if(User != "" || Password != ""){
+        if(User == "" || Password == ""){
             try {
                 throw new isEmptyUserDataException();
             } catch (isEmptyUserDataException ex) {
@@ -94,4 +94,4 @@ public class UserServiceImpl implements UserService{
     user.setLastName(this.usersDao.getAllUsers().get(i).getLastName());
     user.setName(this.usersDao.getAllUsers().get(i).getName());
     user.setPassword(this.usersDao.getAllUsers().get(i).getPassword());
-    user.setUserName(this.usersDao.getAllUsers().get(i).getUserName());*/
+    user.setUserName(this.usersDao.getAllUsers().get(i).getUserName());  */

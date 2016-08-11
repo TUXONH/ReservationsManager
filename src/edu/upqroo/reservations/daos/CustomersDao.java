@@ -5,10 +5,14 @@
  */
 package edu.upqroo.reservations.daos;
 
+import edu.upqroo.reservations.domain.Customers;
+import java.util.*;
 /**
  *
  * @author Moises Barrera
  */
-public interface CostumersDao {
-    
+public interface CustomersDao {
+    void addCustormer(Customers customer);
+    void UpdateCustomer(Customers customer);
+    List<Customers> getAllCustomers();
 }

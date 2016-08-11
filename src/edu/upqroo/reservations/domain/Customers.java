@@ -10,7 +10,7 @@ package edu.upqroo.reservations.domain;
  * 
  * @author Moises Barrera
  */
-public class Costumers {
+public class Customers {
     private int id;
     private String Name;
     private String LastName;

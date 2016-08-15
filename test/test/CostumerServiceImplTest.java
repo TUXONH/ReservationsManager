@@ -7,6 +7,7 @@ package test;
  */
 
 import edu.upqroo.reservations.daos.CustomersDao;
+import edu.upqroo.reservations.daos.CustomersMongoDao;
 import edu.upqroo.reservations.domain.Customers;
 import edu.upqroo.reservations.exceptions.IfCostumerExistsException;
 import edu.upqroo.reservations.services.CostumerService;
@@ -52,12 +53,15 @@ public class CostumerServiceImplTest {
     //
     // @Test
     // public void hello() {}
-    @Test(expected = IfCostumerExistsException.class)
-    public void shouldIfCostumerExistsException(){
-        CustomersDao costumerDao = mock(CustomersDao.class);
-        CostumerService costumersService = new CostumerServiceImpl(costumerDao);
+    @Test (expected = IfCostumerExistsException.class)
+    public void shouldIfCostumerExistsException() throws IfCostumerExistsException {
+        CostumerService costumersService = mock(CostumerServiceImpl.class);
         Customers customer = new Customers("Horacio", "Espinosa", "Calle 42", 22);
         when(costumersService.checkIfCustomerExists(customer)).thenReturn(true);
+        if(costumersService.checkIfCustomerExists(customer)){
+            throw new IfCostumerExistsException();
+        }
+        doThrow(new IfCostumerExistsException()).when(costumersService).checkIfCustomerExists(customer);
         costumersService.addCustormer(customer);
     }
 }

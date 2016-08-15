@@ -17,8 +17,8 @@ import edu.upqroo.reservations.ui.CustomersUI;
 public class Principal {
     public static void main(String[] args){
         CustomersDao costumerDao = new CustomersMongoDao();
-        CostumerService costumersDao = new CostumerServiceImpl(costumerDao);
-        CustomersUI customerui = new CustomersUI(costumersDao);
+        CostumerService costumersService = new CostumerServiceImpl(costumerDao);
+        CustomersUI customerui = new CustomersUI(costumersService);
         customerui.setVisible(true);
     }
 }

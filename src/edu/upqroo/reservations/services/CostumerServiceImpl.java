@@ -12,6 +12,7 @@ import edu.upqroo.reservations.exceptions.isEmptyCostumerDataException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,18 +29,19 @@ public class CostumerServiceImpl implements CostumerService{
     
     @Override
     public boolean checkIfCustomerExists(Customers customer){
-        this.exists = false;
-        for (int i = 0; i < this.getAllCustomers().size(); i++) {
-            if(this.customersDao.getAllCustomers().get(i).getName() == customer.getName() && this.customersDao.getAllCustomers().get(i).getLastName() == customer.getLastName() && this.customersDao.getAllCustomers().get(i).getAddress() == customer.getAddress()){
-                this.exists = true;
+        boolean flag = false;
+        for (int i = 0; i < this.customersDao.getAllCustomers().size(); i++) {
+            if(this.customersDao.getAllCustomers().get(i).getName().equals(customer.getName()) && this.customersDao.getAllCustomers().get(i).getLastName().equals(customer.getLastName())){
+                flag = true;
             }
         }
-        return this.exists;
+        return flag;
     }
+    
     @Override
-    public void addCustormer(Customers customer) {
-        boolean costumerExists = this.checkIfCustomerExists(customer);
-        if(costumerExists){
+    public void addCustormer(Customers customer) throws IfCostumerExistsException{
+        JOptionPane.showMessageDialog(null, this.checkIfCustomerExists(customer));
+        if(this.checkIfCustomerExists(customer)){
             throw new IfCostumerExistsException();
         }else{
             this.customersDao.addCustormer(customer);
@@ -66,6 +68,5 @@ public class CostumerServiceImpl implements CostumerService{
     @Override
     public boolean DeleteCustomer(int id) {
         return this.customersDao.DeleteCustomer(id);
-    }
-    
+    }   
 }

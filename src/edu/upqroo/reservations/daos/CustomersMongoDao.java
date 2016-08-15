@@ -91,4 +91,9 @@ public class CustomersMongoDao implements CustomersDao{
         return AllCustomers;
     }
 
+    @Override
+    public boolean DeleteCustomer(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

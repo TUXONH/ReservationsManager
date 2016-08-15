@@ -16,4 +16,5 @@ public interface CostumerService {
     void addCustormer(Customers customer);
     void UpdateCustomer(Customers customer);
     List<Customers> getAllCustomers();
+    boolean DeleteCustomer(int id);
 }

@@ -6,6 +6,7 @@
 package edu.upqroo.reservations.services;
 
 import edu.upqroo.reservations.domain.Customers;
+import edu.upqroo.reservations.exceptions.IfCostumerExistsException;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * @author Horacio
  */
 public interface CostumerService {
-    void addCustormer(Customers customer);
+    void addCustormer(Customers customer) throws IfCostumerExistsException;
     void UpdateCustomer(Customers customer);
     List<Customers> getAllCustomers();
     boolean DeleteCustomer(int id);

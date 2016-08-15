@@ -18,7 +18,7 @@ public class Principal {
     public static void main(String[] args){
         CustomersDao costumerDao = new CustomersMongoDao();
         CostumerService costumersDao = new CostumerServiceImpl(costumerDao);
-        CustomersUI customerui = new CustomersUI(costumerDao);
+        CustomersUI customerui = new CustomersUI(costumersDao);
         customerui.setVisible(true);
     }
 }

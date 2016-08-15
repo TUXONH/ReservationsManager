@@ -166,6 +166,7 @@ public class Login extends javax.swing.JFrame {
                 Administrador.open();
             } else {
                 CustomersUI venderdor = new CustomersUI(serviceCostumer);
+                venderdor.open();
             }
          //   Menu menu = new Menu(user);
            // menu.setVisible(true);

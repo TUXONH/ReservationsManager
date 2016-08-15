@@ -23,16 +23,7 @@ public class ReservationServiceImpl implements ReservationService{
     
     @Override
     public void addReservation(Reservations reservation) {
-        for (int i = 0; i < this.reservationsDao.GetAllReservations().size(); i++) {
-            if (this.reservationsDao.GetAllReservations().get(i).getTypeReservation() == reservation.getTypeReservation() || 
-                this.reservationsDao.GetAllReservations().get(i).getDescription() == reservation.getDescription() ||
-                this.reservationsDao.GetAllReservations().get(i).getCostumers() == reservation.getCostumers()){
-                    this.exists = true;
-            }
-        }
-        if(!this.exists){
             this.reservationsDao.addReservation(reservation);
-        }
     }
 
     @Override
@@ -54,12 +45,7 @@ public class ReservationServiceImpl implements ReservationService{
 
     @Override
     public Reservations GetReservation(int id) {
-        Reservations reservations = null;
-        for (int i = 0; i < this.GetAllReservations().size(); i++) {
-            if(this.reservationsDao.GetAllReservations().get(i).getId() == id){
-                reservations = this.reservationsDao.GetAllReservations().get(i);
-            }
-        }
+        Reservations reservations = this.reservationsDao.GetReservation(id);
         return reservations;
     }
     

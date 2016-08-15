@@ -7,7 +7,11 @@ package edu.upqroo.reservations.ui;
 
 import edu.upqroo.reservations.daos.CustomersDao;
 import edu.upqroo.reservations.domain.Customers;
+import edu.upqroo.reservations.exceptions.IfCostumerExistsException;
+import edu.upqroo.reservations.services.CostumerService;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -17,14 +21,14 @@ import javax.swing.table.DefaultTableModel;
  * @author Horacio
  */
 public class CustomersUI extends javax.swing.JFrame {
-    private CustomersDao customersDao;
+    private CostumerService costumersService;
     /**
      * Creates new form Users
      */
     public void fillTable(JTable tabla){
         String[] columnNames = {"ID", "Name", "Last name", "Address","Age"};
         DefaultTableModel model = new DefaultTableModel();
-        List<Customers> customers = this.customersDao.getAllCustomers();
+        List<Customers> customers = this.costumersService.getAllCustomers();
         
         for (int i = 0; i < customers.size(); i++) {
             Object[] o = new Object[5];
@@ -38,10 +42,10 @@ public class CustomersUI extends javax.swing.JFrame {
         tabla.setModel(model);
         model.setColumnIdentifiers(columnNames);
     }
-    public CustomersUI(CustomersDao customersDao) {
+    public CustomersUI(CostumerService costumersService) {
         initComponents();
-        this.customersDao = customersDao;
-        this.customersDao.getAllCustomers();
+        this.costumersService = costumersService;
+        this.costumersService.getAllCustomers();
         this.fillTable(jTable1);
     }
 
@@ -196,26 +200,22 @@ public class CustomersUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCostumerActionPerformed
-        // TODO add your handling code here:
-        Customers customer = new Customers();
-        customer.setName(txtName.getText());
-        customer.setLastName(txtLastname.getText());
-        customer.setAddress(txtAddress.getText());
-        customer.setAge(Integer.parseInt(txtAge.getValue().toString()));
-        this.customersDao.addCustormer(customer);
-        this.fillTable(jTable1);
+        try {
+            // TODO add your handling code here:
+            Customers customer = new Customers(txtName.getText(), txtLastname.getText(), txtAddress.getText(), Integer.parseInt(txtAge.getValue().toString()));
+            this.costumersService.addCustormer(customer);
+            this.fillTable(jTable1);
+        } catch (IfCostumerExistsException ex) {
+            Logger.getLogger(CustomersUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAddCostumerActionPerformed
 
     private void btnUpdateCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCostumerActionPerformed
         // TODO add your handling code here:
         if(!txtID.getText().isEmpty()){
-            Customers customer = new Customers();
+            Customers customer = new Customers(txtName.getText(), txtLastname.getText(), txtAddress.getText(), Integer.parseInt(txtAge.getValue().toString()));
             customer.setId(Integer.parseInt(txtID.getText()));
-            customer.setName(txtName.getText());
-            customer.setLastName(txtLastname.getText());
-            customer.setAddress(txtAddress.getText());
-            customer.setAge(Integer.parseInt(txtAge.getValue().toString()));
-            this.customersDao.UpdateCustomer(customer);
+            this.costumersService.UpdateCustomer(customer);
         }
         this.fillTable(jTable1);
     }//GEN-LAST:event_btnUpdateCostumerActionPerformed
@@ -223,7 +223,7 @@ public class CustomersUI extends javax.swing.JFrame {
     private void btnDeleteCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCostumerActionPerformed
         // TODO add your handling code here:
         if(!txtID.getText().isEmpty()){
-            if(this.customersDao.DeleteCustomer(Integer.parseInt(txtID.getText()))){
+            if(this.costumersService.DeleteCustomer(Integer.parseInt(txtID.getText()))){
                 JOptionPane.showMessageDialog(null, "Customer has been deleted successfull!");
             }else{
                 JOptionPane.showMessageDialog(null, "An error has ocurred!");

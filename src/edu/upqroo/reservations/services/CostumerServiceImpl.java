@@ -7,6 +7,7 @@ package edu.upqroo.reservations.services;
 
 import edu.upqroo.reservations.daos.CustomersDao;
 import edu.upqroo.reservations.domain.Customers;
+import edu.upqroo.reservations.exceptions.IfCostumerExistsException;
 import edu.upqroo.reservations.exceptions.isEmptyCostumerDataException;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,10 +27,11 @@ public class CostumerServiceImpl implements CostumerService{
     }
     
     @Override
-    public void addCustormer(Customers customer) {
+    public void addCustormer(Customers customer) throws IfCostumerExistsException {
         for (int i = 0; i < this.getAllCustomers().size(); i++) {
             if(this.customersDao.getAllCustomers().get(i).getName() == customer.getName() && this.customersDao.getAllCustomers().get(i).getLastName() == customer.getLastName() && this.customersDao.getAllCustomers().get(i).getAddress() == customer.getAddress()){
                 this.exists = true;
+                throw new IfCostumerExistsException();
             }
         }
         if(!this.exists){

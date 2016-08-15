@@ -26,7 +26,7 @@ public class Reservations {
     private double Amount;
     private int Currency;
     private boolean ItsOk;
-
+    
     public int getId() {
         return id;
     }

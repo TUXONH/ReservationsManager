@@ -17,6 +17,14 @@ public class Customers {
     private String Address;
     private int Age;
 
+    public Customers(String Name, String LastName, String Address, int Age) {
+        this.Name = Name;
+        this.LastName = LastName;
+        this.Address = Address;
+        this.Age = Age;
+    }
+    
+    
     public int getId() {
         return id;
     }

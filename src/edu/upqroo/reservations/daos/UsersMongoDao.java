@@ -75,10 +75,11 @@ public class UsersMongoDao implements UsersDao{
         BasicDBObject data = new BasicDBObject();
         data.put("id", id);
         DBCursor cursor = tabla.find(data);
-        mongo.close();
         if(cursor.hasNext()){
+            mongo.close();
             return false;
         }
+        mongo.close();
         return true;
     }
 

@@ -25,22 +25,20 @@ import java.util.logging.Logger;
 public class UserServiceImpl implements UserService{
     private UsersDao usersDao;
     private ReservationsDao Reservation;
-    private int maxcontacts;
+    private int maxcontacts=10;
     private boolean exists;
 
     public UserServiceImpl(UsersDao usersDao, ReservationsDao Reservation) {
         this.usersDao = usersDao;
         this.Reservation = Reservation;
         this.exists = false;
-        this.maxcontacts = 10;
     }
     
     @Override
     public void addUser(Users user) throws IfUsersExistsException, IfLimitUsersException{
-        if(this.maxcontacts !=this.usersDao.getAllUsers().size()){
+        if(maxcontacts >0){
             for (int i = 0; i < this.usersDao.getAllUsers().size(); i++) {
-                if(this.usersDao.getAllUsers().get(i).getUserName() == user.getUserName()){
-                    this.exists = true;
+                if(this.usersDao.getAllUsers().get(i).getUserName().equalsIgnoreCase(user.getUserName()) ){
                     throw new IfUsersExistsException();
                 }
             }

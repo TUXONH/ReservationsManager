@@ -189,4 +189,18 @@ public class AdminTest {
             //userService.addUser(user);
             List<TableResults>  result = userService.GetResultVentas();
     }
+    
+    
+    @Test
+    public void GetReservations() throws IfUsersExistsException, IfLimitUsersException{
+            UsersDao con;
+            UserService userService;
+            ReservationsDao dao;
+            ReservationService Reservacion;
+            con = new UsersMongoDao();
+            dao = new ReservationsMongoDao();
+            userService = new UserServiceImpl(con,dao);
+            Reservacion = new ReservationServiceImpl(dao);
+            Reservacion.GetReservation(1);
+    }
 }

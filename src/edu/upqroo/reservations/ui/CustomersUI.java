@@ -27,8 +27,10 @@ public class CustomersUI extends javax.swing.JFrame {
      */
     public void fillTable(JTable tabla){
         String[] columnNames = {"ID", "Name", "Last name", "Address","Age"};
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         List<Customers> customers = this.costumersService.getAllCustomers();
+        //model.addRow(new String[]{"1", "Horacio", "Espinosa", "lajsd", "22"});
+        Object[] objeto = customers.toArray();
         
         for (int i = 0; i < customers.size(); i++) {
             Object[] o = new Object[5];
@@ -40,12 +42,15 @@ public class CustomersUI extends javax.swing.JFrame {
             model.addRow(o);
         }
         tabla.setModel(model);
-        model.setColumnIdentifiers(columnNames);
     }
     public CustomersUI(CostumerService costumersService) {
         initComponents();
         this.costumersService = costumersService;
-        this.costumersService.getAllCustomers();
+        /*for (int i = 0; i < this.costumersService.getAllCustomers().size(); i++) {
+            System.out.println(this.costumersService.getAllCustomers().get(i).getName());
+        }
+        //Customers customer = new Customers("Horacio", "Espinosa", "Calle 42", 22);
+        System.out.println(this.costumersService.checkIfCustomerExists(customer));*/
         this.fillTable(jTable1);
     }
 
@@ -200,14 +205,13 @@ public class CustomersUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCostumerActionPerformed
+        Customers customer = new Customers(txtName.getText(), txtLastname.getText(), txtAddress.getText(), Integer.parseInt(txtAge.getValue().toString()));
         try {
-            // TODO add your handling code here:
-            Customers customer = new Customers(txtName.getText(), txtLastname.getText(), txtAddress.getText(), Integer.parseInt(txtAge.getValue().toString()));
             this.costumersService.addCustormer(customer);
-            this.fillTable(jTable1);
         } catch (IfCostumerExistsException ex) {
             Logger.getLogger(CustomersUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.fillTable(jTable1);
     }//GEN-LAST:event_btnAddCostumerActionPerformed
 
     private void btnUpdateCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCostumerActionPerformed

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface CostumerService {
     boolean checkIfCustomerExists(Customers customer);
-    void addCustormer(Customers customer);
+    void addCustormer(Customers customer) throws IfCostumerExistsException;
     void UpdateCustomer(Customers customer);
     List<Customers> getAllCustomers();
     boolean DeleteCustomer(int id);

@@ -6,6 +6,7 @@
 package edu.upqroo.reservations.services;
 
 import edu.upqroo.reservations.domain.Reservations;
+import edu.upqroo.reservations.exceptions.isEmptyReservationDataException;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * @author Horacio
  */
 public interface ReservationService {
-    void addReservation(Reservations reservation);
+    void addReservation(Reservations reservation) throws isEmptyReservationDataException;
     void UpdateReservation(Reservations reservation);
     boolean DeleteReservation(int id);
     List<Reservations> GetAllReservations();

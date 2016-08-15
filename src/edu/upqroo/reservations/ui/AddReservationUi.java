@@ -7,10 +7,13 @@ package edu.upqroo.reservations.ui;
 
 import edu.upqroo.reservations.domain.Customers;
 import edu.upqroo.reservations.domain.Reservations;
+import edu.upqroo.reservations.exceptions.isEmptyReservationDataException;
 import edu.upqroo.reservations.services.CostumerService;
 import edu.upqroo.reservations.services.ReservationService;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -262,8 +265,12 @@ public class AddReservationUi extends javax.swing.JFrame {
         reservation.setAmount(Integer.parseInt(jTextField2.getText()));
         reservation.setCurrency(1);
         reservation.isItsOk();
-        this.reservationService.addReservation(reservation);
-        //this.fillTable(jTable1);
+        try {
+            this.reservationService.addReservation(reservation);
+            //this.fillTable(jTable1);
+        } catch (isEmptyReservationDataException ex) {
+            Logger.getLogger(AddReservationUi.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void comboCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCustomerActionPerformed

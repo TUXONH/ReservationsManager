@@ -5,6 +5,7 @@
  */
 package edu.upqroo.reservations.services;
 
+import edu.upqroo.reservations.domain.TableResults;
 import edu.upqroo.reservations.domain.Users;
 import edu.upqroo.reservations.exceptions.isEmptyUserDataException;
 import java.util.List;
@@ -20,4 +21,5 @@ public interface UserService {
     List<Users> getAllUsers();
     Users GetUser(int id);
     Users Login(String User, String Password);
+    List<TableResults> GetResultVentas();
 }

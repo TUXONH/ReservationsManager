@@ -5,9 +5,15 @@
  */
 package edu.upqroo.reservations.ui;
 
+import edu.upqroo.reservations.daos.ReservationsDao;
+import edu.upqroo.reservations.daos.ReservationsMongoDao;
+import edu.upqroo.reservations.daos.UsersDao;
 import edu.upqroo.reservations.daos.UsersMongoDao;
 import edu.upqroo.reservations.domain.Users;
 import edu.upqroo.reservations.exceptions.isEmptyUserDataException;
+import edu.upqroo.reservations.services.ReservationService;
+import edu.upqroo.reservations.services.ReservationServiceImpl;
+import edu.upqroo.reservations.services.UserService;
 import edu.upqroo.reservations.services.UserServiceImpl;
 import javax.swing.JOptionPane;
 
@@ -16,16 +22,19 @@ import javax.swing.JOptionPane;
  * @author Mauricio
  */
 public class Login extends javax.swing.JFrame {
-    UsersMongoDao con;
-    UserServiceImpl userService;
+    UsersDao con;
+    UserService userService;
+    ReservationsDao dao;
+    ReservationService Reservacion;
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
         con = new UsersMongoDao();
-        con.CrearMongoDao();
-        userService = new UserServiceImpl(con);
+        dao = new ReservationsMongoDao();
+        Reservacion = new ReservationServiceImpl(dao);
+        userService = new UserServiceImpl(con,dao);
     }
 
     /**
@@ -39,9 +48,14 @@ public class Login extends javax.swing.JFrame {
 
         login = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        userName = new javax.swing.JTextField();
+        JUserName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        password = new javax.swing.JTextField();
+        JPassword = new javax.swing.JPasswordField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,41 +68,72 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setText("User");
 
-        userName.setToolTipText("");
+        JUserName.setToolTipText("");
 
         jLabel2.setText("Password");
 
-        password.setToolTipText("");
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel3.setText("Número de Reservación");
+
+        jButton1.setText("Consultar");
+
+        jLabel4.setText("Acceso Solo de Empleados");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(login)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(password, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(userName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(312, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(login))
+                            .addComponent(JPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                            .addComponent(JUserName)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jButton1))
+                .addGap(119, 119, 119))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addComponent(login)
-                .addGap(191, 191, 191))
+            .addComponent(jSeparator1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(JUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(login)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(68, 68, 68))))
         );
 
         pack();
@@ -97,12 +142,24 @@ public class Login extends javax.swing.JFrame {
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         // TODO add your handling code here:
         Users user = null;
-        user = userService.Login(userName.getText(), password.getText());
+        if(JUserName.getText()!="" && JPassword.getText()!=""){
+            JOptionPane.showMessageDialog(null, "Los Campos estan Vacios");
+            return;
+        }
+        user = userService.Login(JUserName.getText(), JPassword.getText());
         if(user != null)
         {
-            Menu menu = new Menu(user);
-            menu.setVisible(true);
+            if(user.getIsAdministrator()){
+                Admin Administrador = new Admin(userService, Reservacion);
+                Administrador.open();
+            } else {
+            
+            }
+         //   Menu menu = new Menu(user);
+           // menu.setVisible(true);
             super.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "El usuario y la contraseña son invalidados");
         }
     }//GEN-LAST:event_loginActionPerformed
 
@@ -142,10 +199,15 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField JPassword;
+    private javax.swing.JTextField JUserName;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton login;
-    private javax.swing.JTextField password;
-    private javax.swing.JTextField userName;
     // End of variables declaration//GEN-END:variables
 }

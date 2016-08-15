@@ -7,6 +7,8 @@ package edu.upqroo.reservations.services;
 
 import edu.upqroo.reservations.domain.TableResults;
 import edu.upqroo.reservations.domain.Users;
+import edu.upqroo.reservations.exceptions.IfLimitUsersException;
+import edu.upqroo.reservations.exceptions.IfUsersExistsException;
 import edu.upqroo.reservations.exceptions.isEmptyUserDataException;
 import java.util.List;
 
@@ -15,7 +17,7 @@ import java.util.List;
  * @author Horacio
  */
 public interface UserService {
-    void addUser(Users user);
+    void addUser(Users user) throws IfUsersExistsException, IfLimitUsersException;
     boolean DeleteUser(int id);
     void UpdateUser(Users user);
     List<Users> getAllUsers();

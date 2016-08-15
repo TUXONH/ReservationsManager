@@ -7,20 +7,42 @@ package edu.upqroo.reservations.ui;
 
 import edu.upqroo.reservations.daos.CustomersDao;
 import edu.upqroo.reservations.domain.Customers;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Horacio
  */
-public class Users extends javax.swing.JFrame {
+public class CustomersUI extends javax.swing.JFrame {
     private CustomersDao customersDao;
     /**
      * Creates new form Users
      */
-    public Users(CustomersDao customersDao) {
+    public void fillTable(JTable tabla){
+        String[] columnNames = {"ID", "Name", "Last name", "Address","Age"};
+        DefaultTableModel model = new DefaultTableModel();
+        List<Customers> customers = this.customersDao.getAllCustomers();
+        
+        for (int i = 0; i < customers.size(); i++) {
+            Object[] o = new Object[5];
+            o[0] = customers.get(i).getId();
+            o[1] = customers.get(i).getName();
+            o[2] = customers.get(i).getLastName();
+            o[3] = customers.get(i).getAddress();
+            o[4] = customers.get(i).getAge();
+            model.addRow(o);
+        }
+        tabla.setModel(model);
+        model.setColumnIdentifiers(columnNames);
+    }
+    public CustomersUI(CustomersDao customersDao) {
         initComponents();
         this.customersDao = customersDao;
+        this.customersDao.getAllCustomers();
+        this.fillTable(jTable1);
     }
 
     /**
@@ -181,7 +203,7 @@ public class Users extends javax.swing.JFrame {
         customer.setAddress(txtAddress.getText());
         customer.setAge(Integer.parseInt(txtAge.getValue().toString()));
         this.customersDao.addCustormer(customer);
-        
+        this.fillTable(jTable1);
     }//GEN-LAST:event_btnAddCostumerActionPerformed
 
     private void btnUpdateCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCostumerActionPerformed
@@ -195,6 +217,7 @@ public class Users extends javax.swing.JFrame {
             customer.setAge(Integer.parseInt(txtAge.getValue().toString()));
             this.customersDao.UpdateCustomer(customer);
         }
+        this.fillTable(jTable1);
     }//GEN-LAST:event_btnUpdateCostumerActionPerformed
 
     private void btnDeleteCostumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCostumerActionPerformed
@@ -206,6 +229,7 @@ public class Users extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "An error has ocurred!");
             }
         }
+        this.fillTable(jTable1);
     }//GEN-LAST:event_btnDeleteCostumerActionPerformed
 
 

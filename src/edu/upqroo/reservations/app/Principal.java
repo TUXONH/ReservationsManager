@@ -9,7 +9,7 @@ import edu.upqroo.reservations.daos.CustomersMongoDao;
 import edu.upqroo.reservations.services.CostumerService;
 import edu.upqroo.reservations.services.CostumerServiceImpl;
 import edu.upqroo.reservations.ui.Login;
-import edu.upqroo.reservations.ui.Users;
+import edu.upqroo.reservations.ui.CustomersUI;
 /**
  *
  * @author Horacio
@@ -18,7 +18,7 @@ public class Principal {
     public static void main(String[] args){
         CustomersDao costumerDao = new CustomersMongoDao();
         CostumerService costumersDao = new CostumerServiceImpl(costumerDao);
-        Users user = new Users(costumerDao);
-        user.show();
+        CustomersUI customerui = new CustomersUI(costumerDao);
+        customerui.setVisible(true);
     }
 }

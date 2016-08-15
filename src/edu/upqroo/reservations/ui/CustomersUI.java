@@ -232,6 +232,10 @@ public class CustomersUI extends javax.swing.JFrame {
         this.fillTable(jTable1);
     }//GEN-LAST:event_btnDeleteCostumerActionPerformed
 
+    public void open(){
+        this.setVisible(true);
+        this.setLocationRelativeTo(null);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCostumer;

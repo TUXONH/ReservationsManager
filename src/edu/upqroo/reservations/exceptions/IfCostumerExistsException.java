@@ -9,17 +9,6 @@ package edu.upqroo.reservations.exceptions;
  *
  * @author Horacio
  */
-public class IfCostumerExistsException extends Exception{
-    private String message = "Costumer exists, please insert a valid costumer";
-    public IfCostumerExistsException(){
-        System.out.println(message);
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
+public class IfCostumerExistsException extends RuntimeException{
+    
 }

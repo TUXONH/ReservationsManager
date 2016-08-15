@@ -10,6 +10,8 @@ import edu.upqroo.reservations.exceptions.IfCostumerExistsException;
 import edu.upqroo.reservations.services.CostumerService;
 import edu.upqroo.reservations.services.CostumerServiceImpl;
 import edu.upqroo.reservations.ui.CustomersUI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,12 +51,11 @@ public class CostumerServiceImplTest {
     // @Test
     // public void hello() {}
     @Test(expected = IfCostumerExistsException.class)
-    public void shouldIfCostumerExistsException() throws IfCostumerExistsException{
+    public void shouldIfCostumerExistsException(){
         CustomersDao costumerDao = mock(CustomersDao.class);
         CostumerService costumersService = new CostumerServiceImpl(costumerDao);
         Customers customer = new Customers("Horacio", "Espinosa", "Calle 42", 22);
-        Customers customer2 = new Customers("Horacio", "Espinosa", "Calle 42", 22);
+        when(costumersService.checkIfCustomerExists(customer)).thenReturn(true);
         costumersService.addCustormer(customer);
-        costumersService.addCustormer(customer2);
     }
 }

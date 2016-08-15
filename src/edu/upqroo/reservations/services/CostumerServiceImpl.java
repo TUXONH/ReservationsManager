@@ -27,14 +27,21 @@ public class CostumerServiceImpl implements CostumerService{
     }
     
     @Override
-    public void addCustormer(Customers customer) throws IfCostumerExistsException {
+    public boolean checkIfCustomerExists(Customers customer){
+        this.exists = false;
         for (int i = 0; i < this.getAllCustomers().size(); i++) {
             if(this.customersDao.getAllCustomers().get(i).getName() == customer.getName() && this.customersDao.getAllCustomers().get(i).getLastName() == customer.getLastName() && this.customersDao.getAllCustomers().get(i).getAddress() == customer.getAddress()){
                 this.exists = true;
-                throw new IfCostumerExistsException();
             }
         }
-        if(!this.exists){
+        return this.exists;
+    }
+    @Override
+    public void addCustormer(Customers customer) {
+        boolean costumerExists = this.checkIfCustomerExists(customer);
+        if(costumerExists){
+            throw new IfCostumerExistsException();
+        }else{
             this.customersDao.addCustormer(customer);
         }
     }

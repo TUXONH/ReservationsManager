@@ -52,7 +52,7 @@ public class ReservationsMongoDao implements ReservationsDao{
         CrearMongoDao();
         BasicDBObject obj = new BasicDBObject();
         obj.put("id", iden);
-        obj.put("Costumers", reservation.getCostumers());
+        obj.put("CostumersName", reservation.getCostumersName());
         obj.put("SellerId", reservation.getSellerId());
         obj.put("SaleDate", reservation.getSaleDate());
         obj.put("DepartureDate", reservation.getDepartureDate());
@@ -74,7 +74,7 @@ public class ReservationsMongoDao implements ReservationsDao{
         filtro.put("id", reservation.getId());
         BasicDBObject obj = new BasicDBObject();
         obj.put("id", reservation.getId());
-        obj.put("Costumers", reservation.getCostumers());
+        obj.put("CostumersName", reservation.getCostumersName());
         obj.put("SellerId", reservation.getSellerId());
         obj.put("SaleDate", reservation.getSaleDate());
         obj.put("DepartureDate", reservation.getDepartureDate());

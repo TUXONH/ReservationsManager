@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Reservations {
     private int id;
-    private List<Customers> Costumers;
+    private String CostumersName;
     private int SellerId;
     private Date SaleDate;
     private Date DepartureDate;
@@ -31,13 +31,6 @@ public class Reservations {
         return id;
     }
 
-    public List<Customers> getCostumers() {
-        return Costumers;
-    }
-
-    public void setCostumers(List<Customers> Costumers) {
-        this.Costumers = Costumers;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -113,6 +106,14 @@ public class Reservations {
 
     public void setItsOk(boolean ItsOk) {
         this.ItsOk = ItsOk;
+    }
+
+    public String getCostumersName() {
+        return CostumersName;
+    }
+
+    public void setCostumersName(String CostumersName) {
+        this.CostumersName = CostumersName;
     }
     
     

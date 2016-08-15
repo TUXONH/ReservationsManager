@@ -28,7 +28,7 @@ public class ReservationServiceImpl implements ReservationService{
 
     @Override
     public void UpdateReservation(Reservations reservation) {
-        if (reservation.getTypeReservation() > 0 && reservation.getDescription() != "" && reservation.getCostumers().size() > 0){
+        if (reservation.getTypeReservation() > 0 && reservation.getDescription() != ""){
             this.reservationsDao.UpdateReservation(reservation);
         }
     }

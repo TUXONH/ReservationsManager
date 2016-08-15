@@ -5,9 +5,13 @@
  */
 package edu.upqroo.reservations.services;
 
+import edu.upqroo.reservations.daos.ReservationsDao;
 import edu.upqroo.reservations.daos.UsersDao;
+import edu.upqroo.reservations.domain.Reservations;
+import edu.upqroo.reservations.domain.TableResults;
 import edu.upqroo.reservations.domain.Users;
 import edu.upqroo.reservations.exceptions.isEmptyUserDataException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,11 +22,13 @@ import java.util.logging.Logger;
  */
 public class UserServiceImpl implements UserService{
     private UsersDao usersDao;
+    private ReservationsDao Reservation;
     private int maxcontacts;
     private boolean exists;
 
-    public UserServiceImpl(UsersDao usersDao) {
+    public UserServiceImpl(UsersDao usersDao, ReservationsDao Reservation) {
         this.usersDao = usersDao;
+        this.Reservation = Reservation;
         this.exists = false;
         this.maxcontacts = 10;
     }
@@ -85,6 +91,43 @@ public class UserServiceImpl implements UserService{
             }
         }
         return user;
+    }
+    
+    @Override
+    public List<TableResults> GetResultVentas() {
+        List<Users> AllUsers = getAllUsers();
+        List<Reservations> AllReservations =  Reservation.GetAllReservations();
+        List<TableResults> Results = new ArrayList<TableResults>();
+        for(int i=0;i<AllUsers.size();i++){
+            TableResults tmp = new TableResults();
+            tmp.setName(AllUsers.get(i).getName());
+            Results.add(tmp);
+        }
+        for(int i=0;i<AllUsers.size();i++){
+            for(int x=0;x<AllReservations.size();x++){
+                if(AllReservations.get(x).getSellerId()== AllUsers.get(i).getId()){
+                    Results.get(i-1).setTotalVentas(Results.get(i-1).getTotalVentas()+1);
+                    switch(AllReservations.get(x).getTypeReservation()){
+                        case 1:
+                            //HOTEL
+                            Results.get(i-1).setHotel(Results.get(i-1).getHotel()+1);
+                            break;
+                        case 2:
+                            //AVION
+                            Results.get(i-1).setVuelos(Results.get(i-1).getVuelos()+1);
+                            break;
+                        case 3:
+                            //AVION+ HOTEL
+                            Results.get(i-1).setHotelMasVuelos(Results.get(i-1).getHotelMasVuelos()+1);
+                            break;
+                        default :
+                            //NADA
+                            break;
+                    }
+                }
+            }
+        }
+        return Results;
     }
 }
 

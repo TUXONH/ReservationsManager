@@ -54,9 +54,9 @@ public class ReservationsMongoDao implements ReservationsDao{
         obj.put("id", iden);
         obj.put("CostumersName", reservation.getCostumersName());
         obj.put("SellerId", reservation.getSellerId());
-        obj.put("SaleDate", reservation.getSaleDate());
-        obj.put("DepartureDate", reservation.getDepartureDate());
-        obj.put("CompletionDate", reservation.getCompletionDate());
+        obj.put("SaleDateString", reservation.getSaleDateString());
+        obj.put("DepatureDateString", reservation.getDepatureDateString());
+        obj.put("CompletionDateString", reservation.getCompletionDateString());
         obj.put("TypeReservation", reservation.getTypeReservation());
         obj.put("Description", reservation.getDescription());
         obj.put("Amount", reservation.getAmount());
@@ -76,9 +76,9 @@ public class ReservationsMongoDao implements ReservationsDao{
         obj.put("id", reservation.getId());
         obj.put("CostumersName", reservation.getCostumersName());
         obj.put("SellerId", reservation.getSellerId());
-        obj.put("SaleDate", reservation.getSaleDate());
-        obj.put("DepartureDate", reservation.getDepartureDate());
-        obj.put("CompletionDate", reservation.getCompletionDate());
+        obj.put("SaleDateString", reservation.getSaleDateString());
+        obj.put("DepatureDateString", reservation.getDepatureDateString());
+        obj.put("CompletionDateString", reservation.getCompletionDateString());
         obj.put("TypeReservation", reservation.getTypeReservation());
         obj.put("Description", reservation.getDescription());
         obj.put("Amount", reservation.getAmount());

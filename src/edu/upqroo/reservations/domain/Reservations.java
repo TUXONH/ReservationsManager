@@ -18,8 +18,35 @@ public class Reservations {
     private String CostumersName;
     private int SellerId;
     private Date SaleDate;
+    private String SaleDateString;
     private Date DepartureDate;
+    private String DepatureDateString;
     private Date CompletionDate;
+    private String CompletionDateString;
+
+    public String getSaleDateString() {
+        return SaleDateString;
+    }
+
+    public void setSaleDateString(String SaleDateString) {
+        this.SaleDateString = SaleDateString;
+    }
+
+    public String getDepatureDateString() {
+        return DepatureDateString;
+    }
+
+    public void setDepatureDateString(String DepatureDateString) {
+        this.DepatureDateString = DepatureDateString;
+    }
+
+    public String getCompletionDateString() {
+        return CompletionDateString;
+    }
+
+    public void setCompletionDateString(String CompletionDateString) {
+        this.CompletionDateString = CompletionDateString;
+    }
     //Clasificacion de Resevación
     private int TypeReservation;
     private String Description;

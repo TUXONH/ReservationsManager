@@ -127,19 +127,19 @@ public class UserServiceImpl implements UserService{
         for(int i=0;i<AllUsers.size();i++){
             for(int x=0;x<AllReservations.size();x++){
                 if(AllReservations.get(x).getSellerId()== AllUsers.get(i).getId()){
-                    Results.get(i-1).setTotalVentas(Results.get(i-1).getTotalVentas()+1);
+                    Results.get(i).setTotalVentas(Results.get(i).getTotalVentas()+1);
                     switch(AllReservations.get(x).getTypeReservation()){
                         case 1:
                             //HOTEL
-                            Results.get(i-1).setHotel(Results.get(i-1).getHotel()+1);
+                            Results.get(i).setHotel(Results.get(i).getHotel()+1);
                             break;
                         case 2:
                             //AVION
-                            Results.get(i-1).setVuelos(Results.get(i-1).getVuelos()+1);
+                            Results.get(i).setVuelos(Results.get(i).getVuelos()+1);
                             break;
                         case 3:
                             //AVION+ HOTEL
-                            Results.get(i-1).setHotelMasVuelos(Results.get(i-1).getHotelMasVuelos()+1);
+                            Results.get(i).setHotelMasVuelos(Results.get(i).getHotelMasVuelos()+1);
                             break;
                         default :
                             //NADA

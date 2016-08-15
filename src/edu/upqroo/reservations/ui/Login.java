@@ -186,6 +186,7 @@ public class Login extends javax.swing.JFrame {
             int parametro = Integer.parseInt(Parameter.getText().trim());
             Reservations  reserva = Reservacion.GetReservation(parametro);
             if(reserva != null){
+                System.out.println(reserva.getCompletionDateString());
                 ReservationUI nueva = new ReservationUI(reserva);
                 nueva.open();
             } else {

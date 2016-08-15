@@ -10,6 +10,7 @@ import edu.upqroo.reservations.domain.Reservations;
 import edu.upqroo.reservations.exceptions.isEmptyReservationDataException;
 import edu.upqroo.reservations.services.CostumerService;
 import edu.upqroo.reservations.services.ReservationService;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -235,7 +236,7 @@ public class AddReservationUi extends javax.swing.JFrame {
     private void jXDatePicker3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jXDatePicker3ActionPerformed
-
+ public static SimpleDateFormat formatoFecha = new SimpleDateFormat("d/MM/yyyy H:mm");
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         /*
@@ -257,8 +258,13 @@ public class AddReservationUi extends javax.swing.JFrame {
         reservation.setCostumersName(this.costumersService.getAllCustomers().get(this.comboCustomer.getSelectedIndex()).getName());
         reservation.setSellerId(1);
         reservation.setSaleDate(jXDatePicker1.getDate());
+        reservation.setSaleDateString(formatoFecha.format(reservation.getSaleDate()));
+        
         reservation.setDepartureDate(jXDatePicker2.getDate());
+        reservation.setDepatureDateString(formatoFecha.format(reservation.getDepartureDate()));
+        
         reservation.setCompletionDate(jXDatePicker3.getDate());
+        reservation.setCompletionDateString(formatoFecha.format(reservation.getCompletionDate()));
         
         reservation.setTypeReservation(Integer.parseInt(jTextField3.getText()));
         reservation.setDescription(jTextArea1.getText());

@@ -18,12 +18,13 @@ public class ReservationUI extends javax.swing.JFrame {
     public ReservationUI(Reservations reser) {
         initComponents();
         reservacion = reser;
+        Rellenar();
     }
 
     public void Rellenar(){
         this.Descripcion.setText(reservacion.getDescription());
-        this.FechaDeRegreso.setText( reservacion.getCompletionDate().toString());
-        this.FechaDeSalida.setText(reservacion.getDepartureDate().toString());
+        this.FechaDeRegreso.setText( reservacion.getCompletionDateString());
+        this.FechaDeSalida.setText(reservacion.getSaleDateString());
         switch(reservacion.getTypeReservation()){
             case 1:
                 //HOTEL

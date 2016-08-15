@@ -7,7 +7,10 @@ package edu.upqroo.reservations.services;
 
 import edu.upqroo.reservations.daos.ReservationsDao;
 import edu.upqroo.reservations.domain.Reservations;
+import edu.upqroo.reservations.exceptions.isEmptyReservationDataException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,7 +26,15 @@ public class ReservationServiceImpl implements ReservationService{
     
     @Override
     public void addReservation(Reservations reservation) {
-            this.reservationsDao.addReservation(reservation);
+        if(reservation.getDescription() == "")
+        {
+                        try {
+                throw new isEmptyReservationDataException();
+            } catch (isEmptyReservationDataException ex) {
+                Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        this.reservationsDao.addReservation(reservation);
     }
 
     @Override

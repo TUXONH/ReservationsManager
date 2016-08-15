@@ -6,6 +6,10 @@
 
 package edu.upqroo.reservations.services;
 
+import edu.upqroo.reservations.daos.ReservationsDao;
+import edu.upqroo.reservations.daos.ReservationsMongoDao;
+import edu.upqroo.reservations.daos.UsersDao;
+import edu.upqroo.reservations.daos.UsersMongoDao;
 import edu.upqroo.reservations.domain.Users;
 import edu.upqroo.reservations.ui.EmployeeData;
 
@@ -16,9 +20,12 @@ import edu.upqroo.reservations.ui.EmployeeData;
 public class EditEmployee extends EmployeeData{
 
     private Users user;
-    public EditEmployee(UserService service, Users User) {
-        super(service);
+    private static UserService userServices;
+    private UsersDao ud = new UsersMongoDao();
+    private ReservationsDao  rd = new ReservationsMongoDao();
+    public EditEmployee(Users User) {
         this.user = User;
+        userServices = new UserServiceImpl(ud,rd);
     }
 
 
@@ -36,7 +43,7 @@ public class EditEmployee extends EmployeeData{
       this.user.setLastName(User.getLastName());
       this.user.setPassword(User.getUserName());
       this.user.setPassword(User.getPassword());
-      userService.UpdateUser(user);
+      userServices.UpdateUser(user);
     }
 
 }

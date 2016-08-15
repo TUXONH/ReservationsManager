@@ -29,6 +29,7 @@ public class Admin extends javax.swing.JFrame {
         initComponents();
         this.userService = User;
         this.Reservation = Reservacion;
+        UpdateTable();
     }
 
     @SuppressWarnings("unchecked")
@@ -187,7 +188,7 @@ public class Admin extends javax.swing.JFrame {
 
     private void AddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddUserActionPerformed
         // TODO add your handling code here:
-        EmployeeData Agregar = new AddEmployee(userService);
+        EmployeeData Agregar = new AddEmployee();
         Agregar.open();
     }//GEN-LAST:event_AddUserActionPerformed
 
@@ -196,7 +197,7 @@ public class Admin extends javax.swing.JFrame {
         if(!Parameter.getText().trim().isEmpty()){
             Users user = userService.GetUser(Integer.parseInt(Parameter.getText()));
             if(user!=null){
-                EmployeeData editar = new EditEmployee(userService,user);
+                EmployeeData editar = new EditEmployee(user);
                 editar.open();
             } else {
             JOptionPane.showMessageDialog(null, "No existe usuario con ese identificador");

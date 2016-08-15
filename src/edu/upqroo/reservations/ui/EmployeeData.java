@@ -10,8 +10,12 @@ import edu.upqroo.reservations.daos.ReservationsMongoDao;
 import edu.upqroo.reservations.daos.UsersDao;
 import edu.upqroo.reservations.daos.UsersMongoDao;
 import edu.upqroo.reservations.domain.Users;
+import edu.upqroo.reservations.exceptions.IfLimitUsersException;
+import edu.upqroo.reservations.exceptions.IfUsersExistsException;
 import edu.upqroo.reservations.services.UserService;
 import edu.upqroo.reservations.services.UserServiceImpl;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -21,10 +25,8 @@ import javax.swing.JTextField;
  */
 public abstract class EmployeeData extends javax.swing.JFrame {
 
-    public UserService userService;
-    public EmployeeData(UserService service) {
+    public EmployeeData() {
         initComponents();
-        userService = service;
     }
 
     /**
@@ -138,7 +140,14 @@ public abstract class EmployeeData extends javax.swing.JFrame {
             User.setLastName(LastName);
             User.setUserName(NickName);
             User.setPassword(Contraseña);
-            save(User);
+            try {
+                save(User) ;
+                this.dispose();
+            } catch (IfUsersExistsException ex) {
+                Logger.getLogger(EmployeeData.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IfLimitUsersException ex) {
+                Logger.getLogger(EmployeeData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(null,"Falta un dato por ingresar");
         }
@@ -149,7 +158,7 @@ public abstract class EmployeeData extends javax.swing.JFrame {
      */
     
     
-        protected abstract void save (Users User);
+        protected abstract void save (Users User) throws IfUsersExistsException, IfLimitUsersException;
         protected abstract void fillFields();
         
     public void open(){

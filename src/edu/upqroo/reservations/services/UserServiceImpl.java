@@ -10,6 +10,8 @@ import edu.upqroo.reservations.daos.UsersDao;
 import edu.upqroo.reservations.domain.Reservations;
 import edu.upqroo.reservations.domain.TableResults;
 import edu.upqroo.reservations.domain.Users;
+import edu.upqroo.reservations.exceptions.IfLimitUsersException;
+import edu.upqroo.reservations.exceptions.IfUsersExistsException;
 import edu.upqroo.reservations.exceptions.isEmptyUserDataException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,17 +36,20 @@ public class UserServiceImpl implements UserService{
     }
     
     @Override
-    public void addUser(Users user) {
-        if(this.maxcontacts == 0){
+    public void addUser(Users user) throws IfUsersExistsException, IfLimitUsersException{
+        if(this.maxcontacts !=this.usersDao.getAllUsers().size()){
             for (int i = 0; i < this.usersDao.getAllUsers().size(); i++) {
                 if(this.usersDao.getAllUsers().get(i).getUserName() == user.getUserName()){
                     this.exists = true;
+                    throw new IfUsersExistsException();
                 }
             }
             if(!this.exists){
                 this.usersDao.addUser(user);
                 this.maxcontacts--;
             }
+        } else {
+           throw new IfLimitUsersException();
         }
     }
 
@@ -78,6 +83,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public Users Login(String User, String Password) {
         Users user = null;
+        
         if(User == "" || Password == ""){
             try {
                 throw new isEmptyUserDataException();
@@ -85,9 +91,26 @@ public class UserServiceImpl implements UserService{
                 return user;
             }
         }
-        for (int i = 0; i < this.usersDao.getAllUsers().size(); i++) {
-            if(this.usersDao.getAllUsers().get(i).getUserName() == User && this.usersDao.getAllUsers().get(i).getPassword() == Password){
-                user = this.usersDao.getAllUsers().get(i);
+        List<Users> AllUsers = this.usersDao.getAllUsers();
+        for (int i = 0; i < AllUsers.size(); i++) {
+            /*
+                System.out.println(AllUsers.get(i).getId());
+                System.out.println(AllUsers.get(i).getName());
+                System.out.println(AllUsers.get(i).getLastName());
+                System.out.println(">>"+AllUsers.get(i).getUserName()+"<<");
+                System.out.println(AllUsers.get(i).getPassword());
+                System.out.println(AllUsers.get(i).getIsAdministrator());
+                
+                System.out.println(">>"+User+"<<");
+                System.out.println(Password);
+                
+                System.out.println(AllUsers.get(i).getUserName().equalsIgnoreCase(User));
+                
+                System.out.println(AllUsers.get(i).getPassword()==Password);
+                */
+            if(AllUsers.get(i).getUserName().equalsIgnoreCase(User) && AllUsers.get(i).getPassword().equalsIgnoreCase(Password)){
+                System.out.println("Entro");
+                user = AllUsers.get(i);
             }
         }
         return user;

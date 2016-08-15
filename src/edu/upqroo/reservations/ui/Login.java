@@ -5,12 +5,16 @@
  */
 package edu.upqroo.reservations.ui;
 
+import edu.upqroo.reservations.daos.CustomersDao;
+import edu.upqroo.reservations.daos.CustomersMongoDao;
 import edu.upqroo.reservations.daos.ReservationsDao;
 import edu.upqroo.reservations.daos.ReservationsMongoDao;
 import edu.upqroo.reservations.daos.UsersDao;
 import edu.upqroo.reservations.daos.UsersMongoDao;
 import edu.upqroo.reservations.domain.Users;
 import edu.upqroo.reservations.exceptions.isEmptyUserDataException;
+import edu.upqroo.reservations.services.CostumerService;
+import edu.upqroo.reservations.services.CostumerServiceImpl;
 import edu.upqroo.reservations.services.ReservationService;
 import edu.upqroo.reservations.services.ReservationServiceImpl;
 import edu.upqroo.reservations.services.UserService;
@@ -26,6 +30,8 @@ public class Login extends javax.swing.JFrame {
     UserService userService;
     ReservationsDao dao;
     ReservationService Reservacion;
+    CustomersDao CD = new CustomersMongoDao();
+    CostumerService  serviceCostumer = new CostumerServiceImpl(CD);
     /**
      * Creates new form Login
      */
@@ -142,7 +148,7 @@ public class Login extends javax.swing.JFrame {
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         // TODO add your handling code here:
         Users user = null;
-        if(JUserName.getText()!="" && JPassword.getText()!=""){
+        if(JUserName.getText()=="" && JPassword.getText()==""){
             JOptionPane.showMessageDialog(null, "Los Campos estan Vacios");
             return;
         }
@@ -153,7 +159,7 @@ public class Login extends javax.swing.JFrame {
                 Admin Administrador = new Admin(userService, Reservacion);
                 Administrador.open();
             } else {
-            
+                CustomersUI venderdor = new CustomersUI(serviceCostumer);
             }
          //   Menu menu = new Menu(user);
            // menu.setVisible(true);

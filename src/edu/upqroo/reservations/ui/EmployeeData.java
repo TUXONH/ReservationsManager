@@ -27,6 +27,7 @@ public abstract class EmployeeData extends javax.swing.JFrame {
 
     public EmployeeData() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**

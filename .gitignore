@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-=======
 # Created by https://www.gitignore.io/api/netbeans
-
 ### NetBeans ###
->>>>>>> 00ad24a8c1cce68dd676d21b2033e7dfaa9512e4
 nbproject/private/
 build/
 nbbuild/
